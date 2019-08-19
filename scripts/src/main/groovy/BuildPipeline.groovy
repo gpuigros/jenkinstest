@@ -12,9 +12,9 @@ import jenkins.model.*
 
 Yaml yaml = new Yaml()
 
-def pipelinesConfig = yaml.loadAll(new FileReader(System.getenv("WORKSPACE")+"/pipeline.yml"))
+def pipelinesConfig = yaml.loadAll(new FileReader("${WORKSPACE}/pipeline.yml"))
 
-File logFile = new File(System.getenv("WORKSPACE")+"/logs/pipeline_generation.log")
+File logFile = new File("${WORKSPACE}/logs/pipeline_generation.log")
 Log log = Log.configure(logFile)
 
 pipelinesConfig.collect().each { pipelineConfig ->
