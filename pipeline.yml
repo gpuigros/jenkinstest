@@ -99,186 +99,62 @@ pipeline:
 
     - name: DEV_DPS_AWS_EUWEST_1
       jobs:
-        - name: UPLOAD_ARTIFACT_DEV_DPSAWS_REPO
-          type: nexus
-          profiles:
-            - DPS-AWS-EUWEST-1
-            - DPS-AWS-SOUTHEAST-1
-          showName: Upload RPM Nexus DEV
-          jenkinsAgentTags: ON_PREMISE
-          nexusRepositoryId: dev-dps-aws-eu-west-1-dynamic-packaging-repo
-          environment: shared-hbg-aws-eu-west-1
-
-        - name: DEPLOY_APPLICATION_DEV_DPS
-          type: rundeck
-          profiles:
-            - DPS-AWS-EUWEST-1
-            - DPS-AWS-SOUTHEAST-1
-          showName: Deploy application
-          jenkinsAgentTags: ON_PREMISE
-          command:
-            jobIdentifier: da0c5be9-df3f-4195-83b8-eccb1e64f1fb
-            jobOptions:
-              - environment=dev
-              - region=eu-west-1
-              - service_name=package-booking-api
-              - version=${BUILD_VERSION}
-          datadog:
-            tags:
-              - pipeline=package-booking-api
-              - stage=DEV_DPS
-              - deploy=yes
-
-        - name: DEV_OPERATIONS_BOOKING_API
-          scm:
-            url: ssh://git@stash.hotelbeds:7999/qa/package-booking-api-qa.git
-            branch: master
+        - name: BUILD
           type: maven
           profiles:
             - DPS-AWS-EUWEST-1
             - DPS-AWS-SOUTHEAST-1
-          showName: Mini Smoke tests
-          jenkinsAgentTags: ON_PREMISE
-          command: -P dpsdev test -Denvironment=dpsdev -Dgroup=smoke
-          publishers:
-            allure:
-              path: 'target/allure-results'
-              version: 'allure2'
-          triggerCondition: ALWAYS
+          showName: Build
+          jenkinsAgentTags: DPS
+          command: clean compile -e -U
           datadog:
             tags:
               - pipeline=package-booking-api
-              - stage=DEV_DPS
+              - stage=BUILD
 
 
     - name: TEST_DPS_AWS_EUWEST_1
       jobs:
-        - name: RDM_APPROVAL_TEST_DPS
-          type: rdm_approval
-          profiles:
-            - DPS-AWS-EUWEST-1
-            - DPS-AWS-SOUTHEAST-1
-          showName: RDM approval
-          jenkinsAgentTags: ON_PREMISE
-        - name: UPLOAD_ARTIFACT_TEST_DPSAWS_REPO
-          type: nexus
-          profiles:
-            - DPS-AWS-EUWEST-1
-            - DPS-AWS-SOUTHEAST-1
-          showName: Upload RPM Nexus TEST
-          jenkinsAgentTags: ON_PREMISE
-          nexusRepositoryId: test-dps-aws-eu-west-1-dynamic-packaging-repo
-          environment: shared-hbg-aws-eu-west-1
-
-        - name: DEPLOY_APPLICATION_TEST_DPS
-          type: rundeck
-          profiles:
-            - DPS-AWS-EUWEST-1
-            - DPS-AWS-SOUTHEAST-1
-          showName: Deploy application
-          jenkinsAgentTags: DPS
-          command:
-            jobIdentifier: da0c5be9-df3f-4195-83b8-eccb1e64f1fb
-            jobOptions:
-              - environment=test
-              - region=eu-west-1
-              - service_name=package-booking-api
-              - version=${BUILD_VERSION}
-          datadog:
-            tags:
-              - pipeline=package-booking-api
-              - stage=TEST_DPS
-              - deploy=yes
-
-        - name: TEST_OPERATIONS_BOOKING_API
-          scm:
-            url: ssh://git@stash.hotelbeds:7999/qa/package-booking-api-qa.git
-            branch: master
+        - name: BUILD
           type: maven
           profiles:
             - DPS-AWS-EUWEST-1
             - DPS-AWS-SOUTHEAST-1
-          showName: Smoke tests
-          jenkinsAgentTags: ON_PREMISE
-          command: -P dpstest test -Denvironment=dpstest -Dgroup=smoke
-          publishers:
-            allure:
-              path: 'target/allure-results'
-              version: 'allure2'
-          triggerCondition: ALWAYS
+          showName: Build
+          jenkinsAgentTags: DPS
+          command: clean compile -e -U
           datadog:
             tags:
               - pipeline=package-booking-api
-              - stage=TEST_DPS
+              - stage=BUILD
+
 
     - name: LIVE_DPS_AWS_EUWEST_1
       jobs:
-        - name: RDM_APPROVAL_LIVE_DPS
-          type: rdm_approval
-          profiles: DPS-AWS-EUWEST-1
-          showName: RDM approval
-          jenkinsAgentTags: ON_PREMISE
-
-        - name: UPLOAD_ARTIFACT_LIVE_DPSAWS_REPO
-          type: nexus
-          profiles: DPS-AWS-EUWEST-1
-          showName: Upload RPM Nexus LIVE
-          jenkinsAgentTags: ON_PREMISE
-          nexusRepositoryId: live-dps-aws-eu-west-1-dynamic-packaging-repo
-          environment: shared-hbg-aws-eu-west-1
-
-        - name: DEPLOY_APPLICATION_LIVE_DPS
-          type: rundeck
-          profiles: DPS-AWS-EUWEST-1
-          showName: Deploy application
-          jenkinsAgentTags: ON_PREMISE
-          command:
-            jobIdentifier: ae289658-f1c1-441f-a17e-ea3904ee41ce
-            jobOptions:
-              - environment=live
-              - region=eu-west-1
-              - service_name=package-booking-api
-              - version=${BUILD_VERSION}
-          datadog:
-            tags:
-              - pipeline=package-booking-api
-              - stage=LIVE_DPS
-              - deploy=yes
-
-        - name: TAG
+        - name: BUILD
           type: maven
           profiles:
             - DPS-AWS-EUWEST-1
-          showName: Git tagging
-          jenkinsAgentTags: ON_PREMISE
-          command: org.honton.chas:git-tag-maven-plugin:tag -Dgit.tagName=${BUILD_VERSION} -Dgit.use.ssh=true -DskipTests
-          triggerCondition: ALWAYS
+            - DPS-AWS-SOUTHEAST-1
+          showName: Build
+          jenkinsAgentTags: DPS
+          command: clean compile -e -U
           datadog:
             tags:
               - pipeline=package-booking-api
-              - stage=LIVE_DPS
+              - stage=BUILD
 
     - name: LIVE_DPS_AWS_SOUTHEAST_1
       jobs:
-        - name: RDM_APP_LIVE_DPS_SOUTHEAST
-          type: rdm_approval
-          profiles: DPS-AWS-SOUTHEAST-1
-          showName: RDM approval Asia
-          jenkinsAgentTags: ON_PREMISE
-
-        - name: DEPLOY_APP_DEV_DPS_SOUTHEAST
-          type: rundeck
-          profiles: DPS-AWS-SOUTHEAST-1
-          showName: Deploy application Asia
-          jenkinsAgentTags: ON_PREMISE
-          command:
-            jobIdentifier: aa8abe43-943c-4aa4-b8f5-913cf2757466
-            jobOptions:
-            - environment=dev
-            - version=${BUILD_VERSION}
-            - region=ap-southeast-1
+        - name: BUILD
+          type: maven
+          profiles:
+            - DPS-AWS-EUWEST-1
+            - DPS-AWS-SOUTHEAST-1
+          showName: Build
+          jenkinsAgentTags: DPS
+          command: clean compile -e -U
           datadog:
             tags:
               - pipeline=package-booking-api
-              - stage=DEV_DPS
-              - deploy=yes
+              - stage=BUILD
