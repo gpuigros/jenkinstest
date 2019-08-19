@@ -14,7 +14,7 @@ import jenkins.model.*
 import java.util.regex.Pattern
 import java.util.Date
 
-class DeleteOld 
+class DeleteOld  {
 
 static def deleteOld(String dryRun, Integer numberOfDays,String excludeRegexp) {
         jenkins = Jenkins.instance
@@ -51,4 +51,4 @@ static def deleteOld(String dryRun, Integer numberOfDays,String excludeRegexp) {
     }
 
 
-
+}
