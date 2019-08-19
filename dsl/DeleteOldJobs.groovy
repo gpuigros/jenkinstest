@@ -13,7 +13,8 @@ class DeleteOldJobs  {
         def counter = 0
         def jobs = Jenkins.instance.getAllItems()
         for (job in jobs) {
-                out.println "Job= '${counter++}' '${job.name}"
+                //out.println "Job= '${counter++}' '${job.name}"
+                out.println "Job= ${job}"
 
         }
 }
