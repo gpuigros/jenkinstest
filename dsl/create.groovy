@@ -12,7 +12,17 @@ job('DSL/job-dsl-test_BUILD') {
     }
     
     steps {
-        maven('-e clean package',null, null, mavenInstallation('maven-3.6.0'))
+        maven {
+            goals('-e clean package')
+            mavenInstallation('maven-3.6.0')
+
+        }
+      maven {
+            goals('-e clean test')
+            mavenInstallation('maven-3.6.0')
+
+        }
+
         
     }
 }
