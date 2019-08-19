@@ -4,7 +4,10 @@ import hudson.model.*
 
 
 class DeleteOldJobs  {
-    def out = getBinding().out;
+    def out
+    DeleteOldJobs(out){
+        this.out=out
+    }
     def deleteOld(String folderName) {
         println "in"
         def counter = 0

@@ -1,7 +1,7 @@
 import DeleteOldJobs
 
-
-def deleteJobs=new DeleteOldJobs()
+def out= getBinding().out;
+def deleteJobs=new DeleteOldJobs(out)
 deleteJobs.deleteOld("DSL")
 
 job('DSL/job-dsl-test_BUILD') {
