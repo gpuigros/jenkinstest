@@ -1,5 +1,6 @@
 import jenkins.model.*
 import hudson.model.*
+def out = getBinding().out;
 
 class DeleteOldJobs  {
 
@@ -8,7 +9,7 @@ class DeleteOldJobs  {
         def counter = 0
         def jobs = Jenkins.instance.getAllItems()
         for (job in jobs) {
-                println "Job= '${counter++}' '${job.name}"
+                out.println "Job= '${counter++}' '${job.name}"
 
         }
 }
