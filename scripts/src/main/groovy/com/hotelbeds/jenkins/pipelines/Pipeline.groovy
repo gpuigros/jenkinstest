@@ -168,12 +168,15 @@ class Pipeline implements Buildable {
     @Override
     def build(dslFactory) {
         stages.each { Stage stage -> stage.build(dslFactory) }
+        println "111"
         if (this.orchestrate) {
             generatePipelineView(dslFactory)
         }
+        println "222"
         if (this.pullRequestBuilder?.mode != null) {
             generatePullRequestBuilderView(dslFactory)
         }
+        println "333"
         if (!this.configRepos.isEmpty()) {
             configureDeployConfigRepositoriesToS3(dslFactory)
         }
