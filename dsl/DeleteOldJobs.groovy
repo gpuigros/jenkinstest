@@ -2,7 +2,7 @@ import com.cloudbees.hudson.plugins.folder.Folder
 
 class DeleteOldJobs  {
 
-static def deleteOld(String folderName) {
+    def deleteOld(String folderName) {
 
         def allJobs= hudson.model.Hudson.getInstance().getItems()
 
@@ -15,7 +15,10 @@ static def deleteOld(String folderName) {
             }
         }
 
-        void processFolderByName(Item folder){
+        
+    }
+
+    void processFolderByName(Item folder){
         if(folder.getFullName().contains(folderName))
         processFolder(folder)
         }
@@ -36,7 +39,4 @@ static def deleteOld(String folderName) {
         // you can do operations like enable to disable
         // job.disable()
         }
-    }
-
-
 }
