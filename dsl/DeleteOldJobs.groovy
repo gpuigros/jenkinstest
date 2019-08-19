@@ -7,3 +7,5 @@ class DeleteOldJobs  {
 
         println Jenkins.instance.projects.collect { it.name }
 }
+}
+
