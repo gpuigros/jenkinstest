@@ -1,9 +1,10 @@
 import jenkins.model.*
 import hudson.model.*
-def out = getBinding().out;
+
+
 
 class DeleteOldJobs  {
-
+    def out = getBinding().out;
     def deleteOld(String folderName) {
         println "in"
         def counter = 0
