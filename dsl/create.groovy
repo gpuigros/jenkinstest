@@ -1,7 +1,7 @@
 import DeleteOldJobs
 
 
-def deleteJobs=new DeleteOldJobs
+def deleteJobs=new DeleteOldJobs()
 deleteJobs.deleteOld("DSL")
 
 job('DSL/job-dsl-test_BUILD') {
