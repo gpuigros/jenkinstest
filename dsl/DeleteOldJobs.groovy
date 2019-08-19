@@ -1,4 +1,5 @@
-import com.cloudbees.hudson.plugins.folder.Folder
+import jenkins.model.*
+import hudson.model.*
 
 class DeleteOldJobs  {
 
