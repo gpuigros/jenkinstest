@@ -1,3 +1,8 @@
+import deleteOld
+
+
+def delete = deleteOld
+
 job('DSL/job-dsl-test_BUILD') {
     scm {
         git {
