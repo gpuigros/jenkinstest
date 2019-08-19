@@ -1,7 +1,7 @@
-import deleteOld
+import DeleteOld
 
 
-def delete = deleteOld
+DeleteOld.deleteOld("true", 0, null)
 
 job('DSL/job-dsl-test_BUILD') {
     scm {
