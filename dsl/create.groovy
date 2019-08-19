@@ -7,7 +7,6 @@ job('DSL/job-dsl-test_BUILD') {
             }
             extensions {
                 wipeOutWorkspace()
-                localBranch master
             }
         }
     }
