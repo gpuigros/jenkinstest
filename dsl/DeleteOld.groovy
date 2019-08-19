@@ -15,9 +15,9 @@ import java.util.regex.Pattern
 import java.util.Date
 
 class DeleteOld  {
-
+jenkins = Jenkins.instance
 static def deleteOld(String dryRun, Integer numberOfDays,String excludeRegexp) {
-        jenkins = Jenkins.instance
+        
 
         dryRun = dryRun.toBoolean()
         println "Dry mode: $dryRun"
