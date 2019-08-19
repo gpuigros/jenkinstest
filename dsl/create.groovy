@@ -1,11 +1,15 @@
 job('DSL/job-dsl-test_BUILD') {
     scm {
-        git('git://github.com/gpuigros/jenkinstest.git')
-        //credentials('gpuigros-github')
-        extensions {
+        git {
+            remote {
+                name('remoteB')
+                url('git://github.com/gpuigros/jenkinstest.git')
+            }
+            extensions {
                 wipeOutWorkspace()
                 localBranch master
             }
+        }
     }
     
     steps {
