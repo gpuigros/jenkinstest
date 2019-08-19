@@ -1,0 +1,5 @@
+jenkinsPath: package-booking-api/regenerator
+scmRepository: https://github.com/gpuigros/jenkinstest.git
+scmBranch: master
+technology: Spring Boot
+builtByVersion: 6.0.4
