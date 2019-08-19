@@ -1,7 +1,7 @@
-import DeleteOld
+import DeleteOldJobs
 
 
-DeleteOld.deleteOld("true", 0, null)
+DeleteOldJobs.deleteOld("DSL")
 
 job('DSL/job-dsl-test_BUILD') {
     scm {
