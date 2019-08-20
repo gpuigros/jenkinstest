@@ -1,4 +1,4 @@
-import com.cloudbees.hudson.plugins.folder.*
+import com.cloudbees.hudson.plugins.folder.AbstractFolder
 import jenkins.model.*
 import hudson.model.*
 
@@ -29,3 +29,4 @@ class DeleteOldJobs  {
         }
 }
 }
+
