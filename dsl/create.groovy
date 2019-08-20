@@ -2,7 +2,7 @@ import DeleteOldJobs
 
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
-deleteJobs.deleteOld("DSL")
+deleteJobs.deleteOld("${PARENT_FOLDER}")
 
 job('DSL/job-dsl-test_BUILD') {
     scm {
