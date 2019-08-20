@@ -1,4 +1,4 @@
-import com.cloudbees.hudson.plugins.folder.AbstractFolder
+import com.cloudbees.hudson.plugins.folder.Folder
 import jenkins.model.*
 import hudson.model.*
 
@@ -12,7 +12,7 @@ class DeleteOldJobs  {
     }
     def deleteOld(String folderName) {
         out.println "Cleaning folder ${folderName}"
-        AbstractFolder folder = Jenkins.instance.getAllItems(AbstractFolder.class)
+        Folder folder = Jenkins.instance.getAllItems(Folder.class)
             .find {folder -> folderName == folder.fullName };
         folder.getAllJobs()
             .findAll {job -> job instanceof AbstractProject}
