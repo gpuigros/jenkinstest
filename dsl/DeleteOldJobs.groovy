@@ -1,4 +1,4 @@
-@Grab('org.jenkins-ci.plugins.cloudbees-folder:6.1.2')
+@Grab('org.jenkins-ci.plugins.cloudbees-folder')
 import com.cloudbees.hudson.plugins.folder.AbstractFolder
 import jenkins.model.*
 import hudson.model.*
