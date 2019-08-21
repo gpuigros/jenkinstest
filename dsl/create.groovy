@@ -4,9 +4,12 @@ import DeleteOldJobs
 
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
-deleteJobs.deleteOld("${PARENT_FOLDER}","${PARENT_FOLDER}_", "REGENERATOR")
-
 def basePath="${PARENT_FOLDER}/${PARENT_FOLDER}"
+
+
+deleteJobs.deleteOld("${PARENT_FOLDER}","*${basePath}_*", "REGENERATOR")
+
+
 println "basePath = ${basePath}"
 
 job("${basePath}_job-dsl-test_BUILD") {
