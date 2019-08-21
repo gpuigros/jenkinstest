@@ -89,6 +89,7 @@ def job3=job("${basePath}_job-dsl-test_DEPLOY") {
         }
 
     }
+}
 def job4=job("${basePath}_job-dsl-test_DEPLOY2") {
     deliveryPipelineConfiguration('DEPLOY2')
     scm {
