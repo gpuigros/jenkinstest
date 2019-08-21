@@ -67,7 +67,7 @@ def job2=job("${basePath}_job-dsl-test_TEST") {
 }
 
 def job3=job("${basePath}_job-dsl-test_DEPLOY") {
-    deliveryPipelineConfiguration('qa')
+    deliveryPipelineConfiguration('DEPLOY')
     scm {
         git {
             remote {
@@ -86,8 +86,6 @@ def job3=job("${basePath}_job-dsl-test_DEPLOY") {
             mavenInstallation('maven-3.6.0')
 
         }
-       publishers {
-        downstream("${basePath}_job-dsl-test_TEST")
-        }
+
     }
 }
