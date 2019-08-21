@@ -12,32 +12,33 @@ deleteJobs.deleteOld("${PARENT_FOLDER}","${PARENT_FOLDER}_", "REGENERATOR")
 
 println "basePath = ${basePath}"
 
-node('census && docker') {
-    def job1=job("${basePath}_job-dsl-test_BUILD") {
-        scm {
-            git {
-                remote {
-                    name('remoteB')
-                    url('git://github.com/gpuigros/jenkinstest.git')
-                }
-                extensions {
-                    wipeOutWorkspace()
-                }
-            }
-        }
-        
-        steps {
-            maven {
-                goals('-e clean package')
-                mavenInstallation('maven-3.6.0')
 
+def job1=job("${basePath}_job-dsl-test_BUILD") {
+    scm {
+        git {
+            remote {
+                name('remoteB')
+                url('git://github.com/gpuigros/jenkinstest.git')
             }
-        publishers {
-            downstream("${basePath}_job-dsl-test_TEST")
+            extensions {
+                wipeOutWorkspace()
             }
         }
     }
-    def job2=job("${basePath}_job-dsl-test_TEST") {
+    
+    steps {
+        maven {
+            goals('-e clean package')
+            mavenInstallation('maven-3.6.0')
+
+        }
+       publishers {
+        downstream("${basePath}_job-dsl-test_TEST")
+        }
+    }
+}
+
+def job2=job("${basePath}_job-dsl-test_TEST") {
     scm {
         git {
             remote {
@@ -58,6 +59,4 @@ node('census && docker') {
         }
        
     }
-}
-
 }
