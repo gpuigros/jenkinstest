@@ -11,7 +11,7 @@ class DeleteOldJobs  {
     DeleteOldJobs(out){
         this.out=out
     }
-    def deleteOld(String folderName,String includeRegexp,String excludeRegexp) {
+    def deleteOld(String folderName,String include,String exclude) {
         out.println "Cleaning folder ${folderName}"
         out.println "includeRegexp ${include}"
         out.println "excludeRegexp ${exclude}"
