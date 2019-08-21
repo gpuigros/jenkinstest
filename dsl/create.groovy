@@ -62,12 +62,35 @@ def job2=job("${basePath}_job-dsl-test_TEST") {
        
     }
         publishers {
-        downstream("${basePath}_job-dsl-test_DEPLOY")
+            downstream("${basePath}_job-dsl-test_DEPLOY")
+            downstream("${basePath}_job-dsl-test_DEPLOY2")
         }
 }
 
 def job3=job("${basePath}_job-dsl-test_DEPLOY") {
     deliveryPipelineConfiguration('DEPLOY')
+    scm {
+        git {
+            remote {
+                name('remoteB')
+                url('git://github.com/gpuigros/jenkinstest.git')
+            }
+            extensions {
+                wipeOutWorkspace()
+            }
+        }
+    }
+    
+    steps {
+        maven {
+            goals('-e clean package')
+            mavenInstallation('maven-3.6.0')
+
+        }
+
+    }
+def job4=job("${basePath}_job-dsl-test_DEPLOY2") {
+    deliveryPipelineConfiguration('DEPLOY2')
     scm {
         git {
             remote {
