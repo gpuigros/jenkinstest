@@ -28,7 +28,8 @@ class DeleteOldJobs  {
         def jobs = Jenkins.instance.getAllItems()
         for (job in jobs) {
                 if (!job.name.contains(exclude) && job.name.contains(include)){
-                    out.println "Job= ${job} ${job.name} ${job.description}  ${job.displayName}"
+                    out.println "Deleting ${job} ${job.name}"
+                    job.delete()
                 }
 
         }
