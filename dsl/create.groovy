@@ -1,9 +1,11 @@
 import DeleteOldJobs
 
+println "${PARENT_FOLDER}"
+
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
 deleteJobs.deleteOld("${PARENT_FOLDER}","${PARENT_FOLDER}_", "REGENERATOR")
-println GroovySystem.version
+
 
 job('${PARENT_FOLDER}/${PARENT_FOLDER}_job-dsl-test_BUILD') {
     scm {
