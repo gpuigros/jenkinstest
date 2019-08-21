@@ -13,7 +13,6 @@ deleteJobs.deleteOld("${PARENT_FOLDER}","${PARENT_FOLDER}_", "REGENERATOR")
 println "basePath = ${basePath}"
 
 def job1=job("${basePath}_job-dsl-test_BUILD") {
-    stage {"aa"}
     scm {
         git {
             remote {
