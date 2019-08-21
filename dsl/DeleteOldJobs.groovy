@@ -13,6 +13,8 @@ class DeleteOldJobs  {
     }
     def deleteOld(String folderName,String includeRegexp,String excludeRegexp) {
         out.println "Cleaning folder ${folderName}"
+        out.println "includeRegexp ${includeRegexp}"
+        out.println "excludeRegexp ${excludeRegexp}"
         /**AbstractFolder folder = Jenkins.instance.getAllItems(AbstractFolder.class)
             .find {folder -> folderName == folder.fullName };
         folder.getAllJobs()
