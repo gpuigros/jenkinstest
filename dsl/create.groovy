@@ -7,7 +7,7 @@ def deleteJobs=new DeleteOldJobs(out)
 def basePath="${PARENT_FOLDER}/${PARENT_FOLDER}"
 
 
-deleteJobs.deleteOld("${PARENT_FOLDER}","*${PARENT_FOLDER}_*", "REGENERATOR")
+deleteJobs.deleteOld("${PARENT_FOLDER}",".+\\.${PARENT_FOLDER}_.+\\.", "REGENERATOR")
 
 
 println "basePath = ${basePath}"
