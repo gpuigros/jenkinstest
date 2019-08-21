@@ -14,6 +14,59 @@ println "basePath = ${basePath}"
 
 
 def job1=job("${basePath}_job-dsl-test_BUILD") {
+    deliveryPipelineConfiguration('BUILD')
+    scm {
+        git {
+            remote {
+                name('remoteB')
+                url('git://github.com/gpuigros/jenkinstest.git')
+            }
+            extensions {
+                wipeOutWorkspace()
+            }
+        }
+    }
+    
+    steps {
+        maven {
+            goals('-e clean package')
+            mavenInstallation('maven-3.6.0')
+
+        }
+    }
+    publishers {
+        downstream("${basePath}_job-dsl-test_TEST")
+        }
+}
+
+def job2=job("${basePath}_job-dsl-test_TEST") {
+    deliveryPipelineConfiguration('BUILD')
+    scm {
+        git {
+            remote {
+                name('remoteB')
+                url('git://github.com/gpuigros/jenkinstest.git')
+            }
+            extensions {
+                wipeOutWorkspace()
+            }
+        }
+    }
+    
+    steps {
+        maven {
+            goals('-e clean test')
+            mavenInstallation('maven-3.6.0')
+
+        }
+       
+    }
+        publishers {
+        downstream("${basePath}_job-dsl-test_DEPLOY")
+        }
+}
+
+def job3=job("${basePath}_job-dsl-test_DEPLOY") {
     deliveryPipelineConfiguration('qa')
     scm {
         git {
@@ -36,29 +89,5 @@ def job1=job("${basePath}_job-dsl-test_BUILD") {
        publishers {
         downstream("${basePath}_job-dsl-test_TEST")
         }
-    }
-}
-
-def job2=job("${basePath}_job-dsl-test_TEST") {
-    deliveryPipelineConfiguration('qa')
-    scm {
-        git {
-            remote {
-                name('remoteB')
-                url('git://github.com/gpuigros/jenkinstest.git')
-            }
-            extensions {
-                wipeOutWorkspace()
-            }
-        }
-    }
-    
-    steps {
-        maven {
-            goals('-e clean test')
-            mavenInstallation('maven-3.6.0')
-
-        }
-       
     }
 }
