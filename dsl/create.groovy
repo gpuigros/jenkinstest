@@ -1,8 +1,9 @@
 import DeleteOldJobs
 
-def out= getBinding().out;
-def deleteJobs=new DeleteOldJobs(out)
-deleteJobs.deleteOld("${PARENT_FOLDER}")
+//def out= getBinding().out;
+//def deleteJobs=new DeleteOldJobs(out)
+//deleteJobs.deleteOld("${PARENT_FOLDER}")
+println GroovySystem.version
 
 job('DSL/job-dsl-test_BUILD') {
     scm {
