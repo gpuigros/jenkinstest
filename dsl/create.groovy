@@ -12,7 +12,7 @@ deleteJobs.deleteOld("${PARENT_FOLDER}","${PARENT_FOLDER}_", "REGENERATOR")
 
 println "basePath = ${basePath}"
 
-job("${basePath}_job-dsl-test_BUILD") {
+def job1=job("${basePath}_job-dsl-test_BUILD") {
     scm {
         git {
             remote {
@@ -36,8 +36,8 @@ job("${basePath}_job-dsl-test_BUILD") {
         }
     }
 }
-
-job("${basePath}_job-dsl-test_TEST") {
+job1.stage = "aa"
+def job2=job("${basePath}_job-dsl-test_TEST") {
     scm {
         git {
             remote {
@@ -59,3 +59,4 @@ job("${basePath}_job-dsl-test_TEST") {
        
     }
 }
+job2.stage = "aa"
