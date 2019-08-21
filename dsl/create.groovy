@@ -1,13 +1,15 @@
 import DeleteOldJobs
 
-println "${PARENT_FOLDER}"
+
 
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
 deleteJobs.deleteOld("${PARENT_FOLDER}","${PARENT_FOLDER}_", "REGENERATOR")
 
+def basePath="${PARENT_FOLDER}/${PARENT_FOLDER}"
+println "basePath = ${basePath}"
 
-job('${PARENT_FOLDER}/${PARENT_FOLDER}_job-dsl-test_BUILD') {
+job("${basePath}_job-dsl-test_BUILD") {
     scm {
         git {
             remote {
