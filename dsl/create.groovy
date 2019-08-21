@@ -2,10 +2,10 @@ import DeleteOldJobs
 
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
-deleteJobs.deleteOld("${PARENT_FOLDER}")
+deleteJobs.deleteOld("${PARENT_FOLDER}","${PARENT_FOLDER}_", "REGENERATOR")
 println GroovySystem.version
 
-job('DSL/job-dsl-test_BUILD') {
+job('${PARENT_FOLDER}/${PARENT_FOLDER}_job-dsl-test_BUILD') {
     scm {
         git {
             remote {
