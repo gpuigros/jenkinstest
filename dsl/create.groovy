@@ -32,7 +32,7 @@ job("${basePath}_job-dsl-test_BUILD") {
 
         }
        publishers {
-        downstream('${basePath}_job-dsl-test_TEST')
+        downstream("${basePath}_job-dsl-test_TEST")
         }
     }
 }
