@@ -25,7 +25,7 @@ class DeleteOldJobs  {
         def counter = 0
         def jobs = Jenkins.instance.getAllItems()
         for (job in jobs) {
-                if (!pattern.matcher(job.name).matches()){
+                if (!excludePattern.matcher(job.name).matches() && includePattern.matcher(job.name).matches()){
                     out.println "Job= ${job} ${counter++} ${job.name} ${job.description}  ${job.displayName}"
                 }
 
