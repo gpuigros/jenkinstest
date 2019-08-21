@@ -24,11 +24,14 @@ class DeleteOldJobs  {
         **/
         def includePattern = Pattern.compile(includeRegexp)
         def excludePattern = Pattern.compile(excludeRegexp)
-        def counter = 0
+
         def jobs = Jenkins.instance.getAllItems()
         for (job in jobs) {
-                if (!excludePattern.matcher(job.name).matches() && includePattern.matcher(job.name).matches()){
-                    out.println "Job= ${job} ${counter++} ${job.name} ${job.description}  ${job.displayName}"
+                if (!excludePattern.matcher(job.name).matches()){
+                    def matcher=includePattern.matcher(job.name).matches()
+                    if (matcher.group()!=null){
+                        out.println "Job= ${job} ${counter++} ${job.name} ${job.description}  ${job.displayName}"
+                    }
                 }
 
         }
