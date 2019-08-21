@@ -31,12 +31,31 @@ job("${basePath}_job-dsl-test_BUILD") {
             mavenInstallation('maven-3.6.0')
 
         }
-      maven {
+       publishers {
+        downstream('${basePath}_job-dsl-test_TEST')
+        }
+    }
+}
+
+job("${basePath}_job-dsl-test_TEST") {
+    scm {
+        git {
+            remote {
+                name('remoteB')
+                url('git://github.com/gpuigros/jenkinstest.git')
+            }
+            extensions {
+                wipeOutWorkspace()
+            }
+        }
+    }
+    
+    steps {
+        maven {
             goals('-e clean test')
             mavenInstallation('maven-3.6.0')
 
         }
-
-        
+       
     }
 }
