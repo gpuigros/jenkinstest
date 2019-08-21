@@ -29,7 +29,7 @@ class DeleteOldJobs  {
         for (job in jobs) {
                 if (!excludePattern.matcher(job.name).matches()){
                     def matcher=includePattern.matcher(job.name)
-                    if (matcher.group()!=null){
+                    if (matcher!=null && matcher.group()!=null){
                         out.println "Job= ${job} ${counter++} ${job.name} ${job.description}  ${job.displayName}"
                     }
                 }
