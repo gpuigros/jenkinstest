@@ -14,7 +14,7 @@ println "basePath = ${basePath}"
 
 
 def job1=job("${basePath}_job-dsl-test_BUILD") {
-    label('x86 && ubuntu')
+    deliveryPipelineConfiguration('qa')
     scm {
         git {
             remote {
@@ -40,7 +40,7 @@ def job1=job("${basePath}_job-dsl-test_BUILD") {
 }
 
 def job2=job("${basePath}_job-dsl-test_TEST") {
-    label('x86 && ubuntu')
+    deliveryPipelineConfiguration('qa')
     scm {
         git {
             remote {
