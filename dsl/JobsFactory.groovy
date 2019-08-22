@@ -1,7 +1,7 @@
 
 import jenkins.model.*
 import hudson.model.*
-
+import javaposse.jobdsl.dsl.jobs.FreeStyleJob
 
 class JobsFactory  {
     def out
@@ -10,7 +10,7 @@ class JobsFactory  {
         this.out=out
         this.dslFactory=dslFactory
     }
-    def createJob(hudson.model.Job job) {
+    def createJob(FreeStyleJob job) {
 
         out.println "Configuring job ${job.name}"
         job.description="My description"
