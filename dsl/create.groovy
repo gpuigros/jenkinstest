@@ -26,7 +26,11 @@ println pipelineMetadata
 
 println pipelineMetadata.pipeline.name
 
-println pipelineMetadata.pipeline.stages
+
+
+pipelineMetadata.pipeline.stages.each { stage ->
+    println "fruit ${stage.name}"
+};
 
 jobsFactory.createJob(
         "${basePath}_job-dsl-test_BUILD",
