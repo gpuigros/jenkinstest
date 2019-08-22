@@ -24,12 +24,15 @@ Yaml yaml = new Yaml()
 def pipelineMetadata = yaml.load(new FileReader(pipelineFile) )
 println pipelineMetadata
 
-println pipelineMetadata.pipeline.name
+println "Processing pipeline " pipelineMetadata.pipeline.name
 
 
 
 pipelineMetadata.pipeline.stages.each { stage ->
-    println "fruit ${stage.name}"
+    println "Procesing Stage ${stage.name}"
+    stage.jobs.each { job ->
+        println "Procesing Job ${job.name}"
+    };
 };
 
 jobsFactory.createJob(
