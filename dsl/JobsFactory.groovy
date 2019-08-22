@@ -1,9 +1,8 @@
 
 import jenkins.model.*
 import hudson.model.*
-import javaposse.jobdsl.dsl.jobs.FreeStyleJob
-import hudson.plugins.git.GitSCM;
-import hudson.plugins.git.BranchSpec;
+
+
 
 class JobsFactory  {
     def out
