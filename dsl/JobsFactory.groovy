@@ -24,7 +24,7 @@ class JobsFactory  {
         String config="name: ${name} \n" + "repo: ${gitUrl} \n"  + "command: -e clean package\n"  + "downstreamJob: ${downstreamJob}\n"
         Yaml yaml = new Yaml()
         def pipelineMetadata = yaml.load(config)
-        MavenTemplate.create(job("${basePath}_job-dsl-test_BUILD_0"), pipelineMetadata)
+        MavenTemplate.create(dslFactory.job(name), pipelineMetadata)
 
     }
 }
