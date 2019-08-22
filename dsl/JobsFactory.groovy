@@ -21,7 +21,7 @@ class JobsFactory  {
                             scm {
                                 git {
                                     remote {
-                                        name('remote')
+                                        name('remoteB')
                                         url(gitUrl)
                                     }
                                     extensions {
