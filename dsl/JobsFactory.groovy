@@ -20,7 +20,7 @@ class JobsFactory  {
         String downstreamJob) {
         //def job=dslFactory.job(name)    
          
-        String config="name: ${name} \n" + "config.stage.name: ${stageName} \n" +  "repo: ${gitUrl} \n"  + "command: -e clean package\n"  + "downstreamJob: ${downstreamJob}\n"
+        String config="name: ${name} \n" + "stageName: ${stageName} \n" +  "repo: ${gitUrl} \n"  + "command: -e clean package\n"  + "downstreamJob: ${downstreamJob}\n"
         Yaml yaml = new Yaml()
         def pipelineMetadata = yaml.load(config)
         FreeStyleJob job=dslFactory.job(name)
