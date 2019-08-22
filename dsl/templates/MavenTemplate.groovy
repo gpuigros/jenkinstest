@@ -25,10 +25,7 @@ class MavenTemplate {
                 }
             }
             triggers {
-                buildResult('* * * * *') {
-                    combinedJobs()
-                    triggerInfo(config.upstreamJob, BuildResult.SUCCESS)
-                }
+                upstream(config.upstreamJob, "SUCCESS")
             }
         }
     }
