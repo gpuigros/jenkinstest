@@ -2,6 +2,7 @@
 import DeleteOldJobs
 import JobsFactory
 import templates.*
+import org.yaml.snakeyaml.Yaml
 
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
@@ -24,6 +25,8 @@ jobsFactory.createJob(
 */
 String config="name: jenkinstest \n" + "repo: git://github.com/gpuigros/jenkinstest.git \n"  + "command: -e clean package\n"  + "downstreamJob: ${basePath}_job-dsl-test_TEST\n"
 //def pipelineMetadata = yaml.load(new FileReader(System.getenv("WORKSPACE")+"/pipeline.yml)
+Yaml yaml = new Yaml()
+
 def pipelineMetadata = yaml.load(config)
 
 MavenTemplate.create(job("${basePath}_job-dsl-test_BUILD_0"), pipelineMetadata)
