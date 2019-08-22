@@ -40,4 +40,4 @@ jobsFactory.createJob(
         "${basePath}_job-dsl-test_DEPLOY",
         "TEST",
         "git://github.com/gpuigros/jenkinstest.git",
-        "")
+        "''")
