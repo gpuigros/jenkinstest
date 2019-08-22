@@ -1,6 +1,6 @@
 import DeleteOldJobs
 import JobsFactory
-
+import groovy.util.Eval
 
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
@@ -21,7 +21,7 @@ jobsFactory.createJob(
         "git://github.com/gpuigros/jenkinstest.git")
 */
 def job11
-eval "job11=job("${basePath}_job-dsl-test_BUILD_0000")"
+Eval.me ("job11=job(\"${basePath}_job-dsl-test_BUILD_0000\")")
 println "eval name = ${job11.name}"
 def job1=job("${basePath}_job-dsl-test_BUILD") {
     deliveryPipelineConfiguration('BUILD')
