@@ -13,7 +13,7 @@ class JobsFactory  {
         String stageName,
         String gitUrl) {
 
-        out.println "Cleaning folder ${folderName}"
+        out.println "Creating job ${name}"
         def job=job(name) {
                             deliveryPipelineConfiguration(stageName)
                             scm {
