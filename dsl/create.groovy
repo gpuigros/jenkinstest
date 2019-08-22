@@ -1,6 +1,7 @@
+@Grab('org.yaml:snakeyaml:1.17')
 import DeleteOldJobs
 import JobsFactory
-import groovy.util.Eval
+import templates.*
 
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
@@ -15,13 +16,25 @@ println "basePath = ${basePath}"
 //def job11=job("${basePath}_job-dsl-test_BUILD_0")
 //jobsFactory.createJob(job11)
 
+/*
 jobsFactory.createJob(
         "${basePath}_job-dsl-test_BUILD_0",
         "BUILD",
         "git://github.com/gpuigros/jenkinstest.git")
+*/
+String config="name: jenkinstest \n"
+    + "repo: git://github.com/gpuigros/jenkinstest.git \n"
+    + "command: -e clean package\n"
+    + "downstreamJob: ${basePath}_job-dsl-test_TEST\n"
+
+//def pipelineMetadata = yaml.load(new FileReader(System.getenv("WORKSPACE")+"/pipeline.yml)
+def pipelineMetadata = yaml.load(config)
+
+MavenTemplate.create(job("${basePath}_job-dsl-test_BUILD_0"), pipelineMetadata)
 
 
 def job1=job("${basePath}_job-dsl-test_BUILD") {
+    description("Builds all pull requests opened against <code>${config.repo}</code>.<br><br><b>Note</b>: This job is managed <a href='git://github.com/gpuigros/jenkinstest.git'>programmatically</a>; any changes will be lost.")
     deliveryPipelineConfiguration('BUILD')
     scm {
         git {
