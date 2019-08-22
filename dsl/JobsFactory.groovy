@@ -18,7 +18,7 @@ class JobsFactory  {
         String stageName,
         String gitUrl,
         String downstreamJob) {
-        def job=dslFactory.job(name)    
+        //def job=dslFactory.job(name)    
         out.println "Job ${job.name} created. Configuring job ${job.name}"
 
         String config="name: ${name} \n" + "repo: ${gitUrl} \n"  + "command: -e clean package\n"  + "downstreamJob: ${downstreamJob}\n"
