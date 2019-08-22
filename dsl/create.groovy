@@ -19,115 +19,25 @@ println "basePath = ${basePath}"
 
 
 jobsFactory.createJob(
-        "${basePath}_job-dsl-test_BUILD_0",
+        "${basePath}_job-dsl-test_BUILD",
         "BUILD",
         "git://github.com/gpuigros/jenkinstest.git",
         "${basePath}_job-dsl-test_TEST")
 
-//String config="name: jenkinstest \n" + "repo: git://github.com/gpuigros/jenkinstest.git \n"  + "command: -e clean package\n"  + "downstreamJob: ${basePath}_job-dsl-test_TEST\n"
-//def pipelineMetadata = yaml.load(new FileReader(System.getenv("WORKSPACE")+"/pipeline.yml)
-//Yaml yaml = new Yaml()
-//def pipelineMetadata = yaml.load(config)
-//MavenTemplate.create(job("${basePath}_job-dsl-test_BUILD_0"), pipelineMetadata)
+jobsFactory.createJob(
+        "${basePath}_job-dsl-test_TEST",
+        "BUILD",
+        "git://github.com/gpuigros/jenkinstest.git",
+        "${basePath}_job-dsl-test_TAG")
 
+jobsFactory.createJob(
+        "${basePath}_job-dsl-test_TAG",
+        "TEST",
+        "git://github.com/gpuigros/jenkinstest.git",
+        "${basePath}_job-dsl-test_DEPLOY")
 
-def job1=job("${basePath}_job-dsl-test_BUILD") {
-    deliveryPipelineConfiguration('BUILD')
-    scm {
-        git {
-            remote {
-                name('remoteB')
-                url('git://github.com/gpuigros/jenkinstest.git')
-            }
-            extensions {
-                wipeOutWorkspace()
-            }
-        }
-    }
-    
-    steps {
-        maven {
-            goals('-e clean package')
-            mavenInstallation('maven-3.6.0')
-
-        }
-    }
-    publishers {
-        downstream("${basePath}_job-dsl-test_TEST")
-        }
-}
-
-def job2=job("${basePath}_job-dsl-test_TEST") {
-    deliveryPipelineConfiguration('BUILD')
-    scm {
-        git {
-            remote {
-                name('remoteB')
-                url('git://github.com/gpuigros/jenkinstest.git')
-            }
-            extensions {
-                wipeOutWorkspace()
-            }
-        }
-    }
-    
-    steps {
-        maven {
-            goals('-e clean test')
-            mavenInstallation('maven-3.6.0')
-
-        }
-       
-    }
-        publishers {
-            downstream("${basePath}_job-dsl-test_DEPLOY")
-            downstream("${basePath}_job-dsl-test_DEPLOY2")
-        }
-}
-
-def job3=job("${basePath}_job-dsl-test_DEPLOY") {
-    deliveryPipelineConfiguration('DEPLOY')
-    scm {
-        git {
-            remote {
-                name('remoteB')
-                url('git://github.com/gpuigros/jenkinstest.git')
-            }
-            extensions {
-                wipeOutWorkspace()
-            }
-        }
-    }
-    
-    steps {
-        maven {
-            goals('-e clean package')
-            mavenInstallation('maven-3.6.0')
-
-        }
-
-    }
-}
-def job4=job("${basePath}_job-dsl-test_DEPLOY2") {
-    deliveryPipelineConfiguration('DEPLOY2')
-    scm {
-        git {
-            remote {
-                name('remoteB')
-                url('git://github.com/gpuigros/jenkinstest.git')
-            }
-            extensions {
-                wipeOutWorkspace()
-            }
-        }
-    }
-    
-    steps {
-        maven {
-            goals('-e clean package')
-            mavenInstallation('maven-3.6.0')
-
-        }
-
-    }
-}
+jobsFactory.createJob(
+        "${basePath}_job-dsl-test_DEPLOY",
+        "TEST",
+        "git://github.com/gpuigros/jenkinstest.git",
+        null)
