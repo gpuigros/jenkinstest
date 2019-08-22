@@ -17,8 +17,19 @@ class JobsFactory  {
         String gitUrl) {
         
         def job=dslFactory.job(name)    
-        out.println "Configuring job ${job.name}"
-        job.deliveryPipelineConfiguration("BUILD2")
+        out.println "Job ${job.name} created. Configuring job ${job.name}"
+        job.deliveryPipelineConfiguration(stageName)
+        job.scm(){scm {
+        git {
+            remote {
+                name('remoteB')
+                url('git://github.com/gpuigros/jenkinstest.git')
+            }
+            extensions {
+                wipeOutWorkspace()
+            }
+        }
+    }}
 
     }
 }
