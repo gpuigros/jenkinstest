@@ -21,8 +21,10 @@ class JobsFactory  {
         def job=dslFactory.job(name)    
         out.println "Job ${job.name} created. Configuring job ${job.name}"
         job.deliveryPipelineConfiguration(stageName)
-        job.scm = new GitSCM("git://github.com/gpuigros/jenkinstest.git");
-        job.scm.branches = [new BranchSpec("*/master")];
+        def git=Jenkins.instance.getExtensionList('hudson.plugins.git.GitSCM')
+        out git
+        //job.scm = new GitSCM("git://github.com/gpuigros/jenkinstest.git");
+        //job.scm.branches = [new BranchSpec("*/master")];
 
     }
 }
