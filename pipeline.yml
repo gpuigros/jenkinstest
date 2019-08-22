@@ -3,11 +3,23 @@ pipeline:
   name: jenkinstest
   repo: git://github.com/gpuigros/jenkinstest.git
   stages:
-    - name: BUILD
+    - name: PIPELINE_BUILD
       jobs:
-        - name: BUILD
+        - name: P_BUILD
           type: maven
           showName: Build
-          jenkinsAgentTags: DPS
           command: clean compile -e -U
-
+        - name: P_TEST
+          type: maven
+          showName: Build
+          command: clean compile -e -U
+    - name: PIPELINE_TEST
+      jobs:
+        - name: P_TAG
+          type: maven
+          showName: Build
+          command: clean compile -e -U
+        - name: P_DEPLOY
+          type: maven
+          showName: Build
+          command: clean compile -e -U

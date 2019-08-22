@@ -18,6 +18,12 @@ println "basePath = ${basePath}"
 //jobsFactory.createJob(job11)
 
 
+Yaml yaml = new Yaml()
+def pipelineMetadata = yaml.load(new FileReader(System.getenv("WORKSPACE")+"/pipeline.yml") )
+println pipelineMetadata
+
+
+
 jobsFactory.createJob(
         "${basePath}_job-dsl-test_BUILD",
         "BUILD",
