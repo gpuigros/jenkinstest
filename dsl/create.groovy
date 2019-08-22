@@ -15,8 +15,8 @@ println "basePath = ${basePath}"
 
 jobsFactory.createJob(
         "${basePath}_job-dsl-test_BUILD_0",
-        String "BUILD",
-        String "git://github.com/gpuigros/jenkinstest.git")
+        "BUILD",
+        "git://github.com/gpuigros/jenkinstest.git")
 
 def job1=job("${basePath}_job-dsl-test_BUILD") {
     deliveryPipelineConfiguration('BUILD')
