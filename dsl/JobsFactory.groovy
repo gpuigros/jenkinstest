@@ -10,7 +10,7 @@ class JobsFactory  {
         this.out=out
         this.dslFactory=dslFactory
     }
-    def createJob(Job job) {
+    def createJob(hudson.model.Job job) {
 
         out.println "Configuring job ${job.name}"
         job.description="My description"
