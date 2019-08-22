@@ -16,19 +16,28 @@ class JobsFactory  {
         String gitUrl) {
 
         out.println "Creating job ${name}"
-        def job=dslFactory.job(name) {
-                            deliveryPipelineConfiguration(stageName)
-                            scm {
-                                git {
-                                    remote {
-                                        name('remoteB')
-                                        url(gitUrl)
-                                    }
-                                    extensions {
-                                        wipeOutWorkspace()
-                                    }
-                                }
-                            }       
-                        }
+        def job4=dslFactory.job(name){
+            deliveryPipelineConfiguration('DEPLOY2')
+            scm {
+                git {
+                    remote {
+                        name('remoteB')
+                        url('git://github.com/gpuigros/jenkinstest.git')
+                    }
+                    extensions {
+                        wipeOutWorkspace()
+                    }
+                }
+            }
+            
+            steps {
+                maven {
+                    goals('-e clean package')
+                    mavenInstallation('maven-3.6.0')
+
+                }
+
+            }
+        }
     }
 }
