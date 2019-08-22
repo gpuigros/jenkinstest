@@ -33,7 +33,7 @@ MavenTemplate.create(job("${basePath}_job-dsl-test_BUILD_0"), pipelineMetadata)
 
 
 def job1=job("${basePath}_job-dsl-test_BUILD") {
-    description("Builds all pull requests opened against <code>${config.repo}</code>.<br><br><b>Note</b>: This job is managed <a href='git://github.com/gpuigros/jenkinstest.git'>programmatically</a>; any changes will be lost.")
+    
     deliveryPipelineConfiguration('BUILD')
     scm {
         git {
