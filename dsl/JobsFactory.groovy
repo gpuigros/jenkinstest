@@ -5,8 +5,10 @@ import hudson.model.*
 
 class JobsFactory  {
     def out
-    JobsFactory(out){
+    def dslFactory
+    JobsFactory(out, dslFactory){
         this.out=out
+        this.dslFactory=dslFactory
     }
     def createJob(
         String name,
@@ -14,7 +16,7 @@ class JobsFactory  {
         String gitUrl) {
 
         out.println "Creating job ${name}"
-        def job=job(name) {
+        def job=dslFactory.job(name) {
                             deliveryPipelineConfiguration(stageName)
                             scm {
                                 git {

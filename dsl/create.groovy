@@ -4,7 +4,7 @@ import JobsFactory
 
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
-def jobsFactory=new JobsFactory(out)
+def jobsFactory=new JobsFactory(out,this)
 def basePath="${PARENT_FOLDER}/${PARENT_FOLDER}"
 
 
