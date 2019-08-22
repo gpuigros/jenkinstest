@@ -1,4 +1,4 @@
-@Grab('org.yaml:snakeyaml:1.17')
+ @Grab('org.yaml:snakeyaml:1.17')
 import DeleteOldJobs
 import JobsFactory
 import templates.*
@@ -24,7 +24,7 @@ Yaml yaml = new Yaml()
 def pipelineMetadata = yaml.load(new FileReader(pipelineFile) )
 println pipelineMetadata
 
-println "Processing pipeline " pipelineMetadata.pipeline.name
+println "Processing pipeline ${pipelineMetadata.pipeline.name}"
 
 
 
