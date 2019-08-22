@@ -24,7 +24,7 @@ Yaml yaml = new Yaml()
 def pipelineMetadata = yaml.load(new FileReader(pipelineFile) )
 println pipelineMetadata
 
-
+println pipelineMetadata.pipeline.name
 
 jobsFactory.createJob(
         "${basePath}_job-dsl-test_BUILD",
