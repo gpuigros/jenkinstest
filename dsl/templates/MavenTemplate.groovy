@@ -24,9 +24,12 @@ class MavenTemplate {
 
                 }
             }
-            publishers {
-                downstream(config.downstreamJob)
+            triggers {
+                buildResult('* * * * *') {
+                    combinedJobs()
+                    triggerInfo(config.upstreamJob, BuildResult.SUCCESS)
                 }
+            }
         }
     }
 }

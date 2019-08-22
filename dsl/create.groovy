@@ -7,7 +7,7 @@ import org.yaml.snakeyaml.Yaml
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
 def jobsFactory=new JobsFactory(out,this)
-def basePath="${PARENT_FOLDER}/${PARENT_FOLDER}"
+def basePath="${PARENT_FOLDER}/"
 
 
 deleteJobs.deleteOld("${PARENT_FOLDER}","${PARENT_FOLDER}_", "REGENERATOR")
@@ -24,37 +24,22 @@ Yaml yaml = new Yaml()
 def pipelineMetadata = yaml.load(new FileReader(pipelineFile) )
 println pipelineMetadata
 
-println "Processing pipeline ${pipelineMetadata.pipeline.name}"
+def projectName=pipelineMetadata.pipeline.name
+println "Processing pipeline ${projectName}"
 
 
-
+def triggerJob=''
 pipelineMetadata.pipeline.stages.each { stage ->
     println "Procesing Stage ${stage.name}"
     stage.jobs.each { job ->
         println "Procesing Job ${job.name}"
+        def fullJobName="${basePath}${projectName}_${job.name}"
+        jobsFactory.createJob(
+            "${fullJobName}",
+            stage.name,
+            pipelineMetadata.pipeline.repo,
+            "'${triggerJob}'")
+        triggerJob=fullJobName
     };
 };
 
-jobsFactory.createJob(
-        "${basePath}_job-dsl-test_BUILD",
-        "BUILD",
-        "git://github.com/gpuigros/jenkinstest.git",
-        "${basePath}_job-dsl-test_TEST")
-
-jobsFactory.createJob(
-        "${basePath}_job-dsl-test_TEST",
-        "BUILD",
-        "git://github.com/gpuigros/jenkinstest.git",
-        "${basePath}_job-dsl-test_TAG")
-
-jobsFactory.createJob(
-        "${basePath}_job-dsl-test_TAG",
-        "TEST",
-        "git://github.com/gpuigros/jenkinstest.git",
-        "${basePath}_job-dsl-test_DEPLOY")
-
-jobsFactory.createJob(
-        "${basePath}_job-dsl-test_DEPLOY",
-        "TEST",
-        "git://github.com/gpuigros/jenkinstest.git",
-        "''")
