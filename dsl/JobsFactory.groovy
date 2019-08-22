@@ -2,6 +2,8 @@
 import jenkins.model.*
 import hudson.model.*
 import javaposse.jobdsl.dsl.jobs.FreeStyleJob
+import hudson.plugins.git.GitSCM;
+import hudson.plugins.git.BranchSpec;
 
 class JobsFactory  {
     def out
@@ -19,17 +21,8 @@ class JobsFactory  {
         def job=dslFactory.job(name)    
         out.println "Job ${job.name} created. Configuring job ${job.name}"
         job.deliveryPipelineConfiguration(stageName)
-        job.scm(){scm {
-        git {
-            remote {
-                name('remoteB')
-                url('git://github.com/gpuigros/jenkinstest.git')
-            }
-            extensions {
-                wipeOutWorkspace()
-            }
-        }
-    }}
+        job.scm = new GitSCM("git://github.com/gpuigros/jenkinstest.git");
+        job.scm.branches = [new BranchSpec("*/master")];
 
     }
 }
