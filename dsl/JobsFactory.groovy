@@ -16,7 +16,7 @@ class JobsFactory  {
         String stageName,
         String gitUrl) {
         
-        def job=dslFactory.job("${basePath}_job-dsl-test_BUILD_0")    
+        def job=dslFactory.job(name)    
         out.println "Configuring job ${job.name}"
         job.deliveryPipelineConfiguration("BUILD2")
 
