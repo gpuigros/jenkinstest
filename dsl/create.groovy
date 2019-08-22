@@ -17,19 +17,18 @@ println "basePath = ${basePath}"
 //def job11=job("${basePath}_job-dsl-test_BUILD_0")
 //jobsFactory.createJob(job11)
 
-/*
+
 jobsFactory.createJob(
         "${basePath}_job-dsl-test_BUILD_0",
         "BUILD",
-        "git://github.com/gpuigros/jenkinstest.git")
-*/
-String config="name: jenkinstest \n" + "repo: git://github.com/gpuigros/jenkinstest.git \n"  + "command: -e clean package\n"  + "downstreamJob: ${basePath}_job-dsl-test_TEST\n"
+        "git://github.com/gpuigros/jenkinstest.git",
+        "${basePath}_job-dsl-test_TEST")
+
+//String config="name: jenkinstest \n" + "repo: git://github.com/gpuigros/jenkinstest.git \n"  + "command: -e clean package\n"  + "downstreamJob: ${basePath}_job-dsl-test_TEST\n"
 //def pipelineMetadata = yaml.load(new FileReader(System.getenv("WORKSPACE")+"/pipeline.yml)
-Yaml yaml = new Yaml()
-
-def pipelineMetadata = yaml.load(config)
-
-MavenTemplate.create(job("${basePath}_job-dsl-test_BUILD_0"), pipelineMetadata)
+//Yaml yaml = new Yaml()
+//def pipelineMetadata = yaml.load(config)
+//MavenTemplate.create(job("${basePath}_job-dsl-test_BUILD_0"), pipelineMetadata)
 
 
 def job1=job("${basePath}_job-dsl-test_BUILD") {

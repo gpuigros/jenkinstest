@@ -1,8 +1,9 @@
-
+@Grab('org.yaml:snakeyaml:1.17')
 import jenkins.model.*
 import hudson.model.*
 import javaposse.jobdsl.dsl.jobs.FreeStyleJob
-
+import org.yaml.snakeyaml.Yaml
+import templates.*
 
 class JobsFactory  {
     def out
@@ -15,14 +16,15 @@ class JobsFactory  {
     def createJob(
         String name,
         String stageName,
-        String gitUrl) {
-        
+        String gitUrl,
+        String downstreamJob) {
         def job=dslFactory.job(name)    
         out.println "Job ${job.name} created. Configuring job ${job.name}"
-        job.deliveryPipelineConfiguration(stageName)
 
-        //job.scm = new GitSCM("git://github.com/gpuigros/jenkinstest.git");
-        //job.scm.branches = [new BranchSpec("*/master")];
+        String config="name: ${name} \n" + "repo: ${gitUrl} \n"  + "command: -e clean package\n"  + "downstreamJob: ${downstreamJob}\n"
+        Yaml yaml = new Yaml()
+        def pipelineMetadata = yaml.load(config)
+        MavenTemplate.create(job("${basePath}_job-dsl-test_BUILD_0"), pipelineMetadata)
 
     }
 }
