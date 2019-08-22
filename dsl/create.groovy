@@ -22,11 +22,7 @@ jobsFactory.createJob(
         "BUILD",
         "git://github.com/gpuigros/jenkinstest.git")
 */
-String config="name: jenkinstest \n"
-    + "repo: git://github.com/gpuigros/jenkinstest.git \n"
-    + "command: -e clean package\n"
-    + "downstreamJob: ${basePath}_job-dsl-test_TEST\n"
-
+String config="name: jenkinstest \n" + "repo: git://github.com/gpuigros/jenkinstest.git \n"  + "command: -e clean package\n"  + "downstreamJob: ${basePath}_job-dsl-test_TEST\n"
 //def pipelineMetadata = yaml.load(new FileReader(System.getenv("WORKSPACE")+"/pipeline.yml)
 def pipelineMetadata = yaml.load(config)
 
