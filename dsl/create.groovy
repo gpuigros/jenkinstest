@@ -26,6 +26,8 @@ println pipelineMetadata
 
 println pipelineMetadata.pipeline.name
 
+println pipelineMetadata.pipeline.stages
+
 jobsFactory.createJob(
         "${basePath}_job-dsl-test_BUILD",
         "BUILD",
