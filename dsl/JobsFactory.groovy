@@ -13,6 +13,6 @@ class JobsFactory  {
     def createJob(FreeStyleJob job) {
 
         out.println "Configuring job ${job.name}"
-        job.description="My description"
+        job.deliveryPipelineConfiguration="BUILD2"
     }
 }
