@@ -1,9 +1,10 @@
 import DeleteOldJobs
-
+import JobsFactory
 
 
 def out= getBinding().out;
 def deleteJobs=new DeleteOldJobs(out)
+def jobsFactory=new JobsFactory(out)
 def basePath="${PARENT_FOLDER}/${PARENT_FOLDER}"
 
 
@@ -12,6 +13,10 @@ deleteJobs.deleteOld("${PARENT_FOLDER}","${PARENT_FOLDER}_", "REGENERATOR")
 
 println "basePath = ${basePath}"
 
+jobsFactory.createJob(
+        "${basePath}_job-dsl-test_BUILD_0",
+        String "BUILD",
+        String "git://github.com/gpuigros/jenkinstest.git")
 
 def job1=job("${basePath}_job-dsl-test_BUILD") {
     deliveryPipelineConfiguration('BUILD')
