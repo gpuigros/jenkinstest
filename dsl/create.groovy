@@ -33,7 +33,6 @@ MavenTemplate.create(job("${basePath}_job-dsl-test_BUILD_0"), pipelineMetadata)
 
 
 def job1=job("${basePath}_job-dsl-test_BUILD") {
-    
     deliveryPipelineConfiguration('BUILD')
     scm {
         git {
