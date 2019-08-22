@@ -28,7 +28,7 @@ def projectName=pipelineMetadata.pipeline.name
 println "Processing pipeline ${projectName}"
 
 
-def triggerJob=''
+def triggerJob=null
 pipelineMetadata.pipeline.stages.each { stage ->
     println "Procesing Stage ${stage.name}"
     stage.jobs.each { job ->
@@ -38,7 +38,7 @@ pipelineMetadata.pipeline.stages.each { stage ->
             "${fullJobName}",
             stage.name,
             pipelineMetadata.pipeline.repo,
-            "'${triggerJob}'")
+            "${triggerJob}")
         triggerJob=fullJobName
     };
 };

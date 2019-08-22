@@ -24,9 +24,16 @@ class MavenTemplate {
 
                 }
             }
-            triggers {
-                upstream(config.upstreamJob, "SUCCESS")
+            
+        }
+
+        if (config.upstreamJob!=null){
+            job.with {
+                triggers {
+                    upstream(config.upstreamJob, "SUCCESS")
+                }
             }
         }
+
     }
 }
