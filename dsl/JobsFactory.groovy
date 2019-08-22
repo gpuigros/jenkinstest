@@ -19,12 +19,12 @@ class JobsFactory  {
         String gitUrl,
         String downstreamJob) {
         //def job=dslFactory.job(name)    
-        out.println "Job ${job.name} created. Configuring job ${job.name}"
-
+         
         String config="name: ${name} \n" + "repo: ${gitUrl} \n"  + "command: -e clean package\n"  + "downstreamJob: ${downstreamJob}\n"
         Yaml yaml = new Yaml()
         def pipelineMetadata = yaml.load(config)
-        MavenTemplate.create(dslFactory.job(name), pipelineMetadata)
-
+        FreeStyleJob job=dslFactory.job(name)
+        MavenTemplate.create(job, pipelineMetadata)
+        out.println "Job ${job.name} created."
     }
 }
