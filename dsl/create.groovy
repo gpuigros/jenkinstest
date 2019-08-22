@@ -14,12 +14,15 @@ deleteJobs.deleteOld("${PARENT_FOLDER}","${PARENT_FOLDER}_", "REGENERATOR")
 println "basePath = ${basePath}"
 //def job11=job("${basePath}_job-dsl-test_BUILD_0")
 //jobsFactory.createJob(job11)
-
+/*
 jobsFactory.createJob(
         "${basePath}_job-dsl-test_BUILD_0",
         "BUILD",
         "git://github.com/gpuigros/jenkinstest.git")
-
+*/
+def job11
+eval "job11=job("${basePath}_job-dsl-test_BUILD_0000")"
+println "eval name = ${job11.name}"
 def job1=job("${basePath}_job-dsl-test_BUILD") {
     deliveryPipelineConfiguration('BUILD')
     scm {
